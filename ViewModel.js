@@ -2,7 +2,7 @@ var Place = function(data) {
 	var self = this;
 	self.name = data.name;
 	self.position = data.latLng;
-	self.marker = '',
+	self.marker = '';
 
 	// Initialize the place object
 	self.init = function() {
