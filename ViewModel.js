@@ -30,11 +30,15 @@ var Place = function(data) {
 	self.init();
 }
 
-var initialCenter = new google.maps.LatLng(35.529792, 139.698568);
-var googleMap = new google.maps.Map(document.getElementById('map-canvas'), {
-	center: initialCenter,
-	zoom: 12
-});
+var googleMap;
+function init() {
+	var initialCenter = new google.maps.LatLng(35.529792, 139.698568);
+	googleMap = new google.maps.Map(document.getElementById('map-canvas'), {
+		center: initialCenter,
+		zoom: 12
+	});
+}
+google.maps.event.addDomListener(window, 'load', init);
 
 
 var ViewModel = function() {
