@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Neighborhood Map</title>
+	<style type="text/css">
+      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    </style>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js"></script>
+   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWPhYOyaPrdlJotIraUVfbczZ9a-YlnaQ">
+    </script>
+    <script type="text/javascript" src="ViewModel.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+	<div id="search-bar">
+		<input type="search" data-bind="value: fiterText, valueUpdate: 'input', event: {input: search(fiterText)}" placeholder="Search Box">
+	</div>
+	<div id="places-list">
+		<ul data-bind="foreach: filterList">
+			<li data-bind="text: name"></li>
+		</ul>
+	</div>
+	<div id="map-canvas"></div>
+</body>
+
+
+</html>
