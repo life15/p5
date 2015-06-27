@@ -3,12 +3,12 @@ var Place = function(data) {
 	self.name = data.name;
 	self.position = data.latLng;
 	self.marker = '';
-	// self.infowindow = '';
+	self.infowindow = '';
 
 	// Initialize the place object
 	self.init = function() {
 		self.createMarker();
-		// self.createInfowindow();
+		self.createInfowindow();
 	}
 
 	// Initialize marker of the place
@@ -18,7 +18,7 @@ var Place = function(data) {
 			position: self.position
 		});
 
-		// google.maps.event.addListener(self.marker, 'click', self.addInfowindow);
+		google.maps.event.addListener(self.marker, 'click', self.addInfowindow);
 	}
 
 	// Add marker to the view
@@ -32,15 +32,15 @@ var Place = function(data) {
 	}
 
 	// Initialzie infowindow of the place
-	// self.createInfowindow = function() {
-	// 	self.infowindow = new google.maps.InfoWindow();
-	// 	self.infowindow.setContent('hello world');
-	// }
+	self.createInfowindow = function() {
+		self.infowindow = new google.maps.InfoWindow();
+		self.infowindow.setContent('hello world');
+	}
 
 	// Add infowindow to the view
-	// self.addInfowindow = function() {
-	// 	self.infowindow.open(googleMap, self.marker);
-	// }
+	self.addInfowindow = function() {
+		self.infowindow.open(googleMap, self.marker);
+	}
 
 	self.init();
 }
@@ -59,7 +59,7 @@ google.maps.event.addDomListener(window, 'load', mapInit);
 
 var ViewModel = function() {
 	var self = this;
-	self.fiterText = ko.observable();
+	self.filterText = ko.observable();
 	self.filterList = ko.observableArray();
 
 	// neighbourhood places
