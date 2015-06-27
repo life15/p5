@@ -2,11 +2,13 @@ var Place = function(data) {
 	var self = this;
 	self.name = data.name;
 	self.position = data.latLng;
-	self.marker = '',
+	self.marker = '';
+	// self.infowindow = '';
 
 	// Initialize the place object
 	self.init = function() {
 		self.createMarker();
+		// self.createInfowindow();
 	}
 
 	// Initialize marker of the place
@@ -15,6 +17,8 @@ var Place = function(data) {
 			map: googleMap,
 			position: self.position
 		});
+
+		// google.maps.event.addListener(self.marker, 'click', self.addInfowindow);
 	}
 
 	// Add marker to the view
@@ -27,14 +31,30 @@ var Place = function(data) {
 		self.marker.setMap(null);
 	}
 
+	// Initialzie infowindow of the place
+	// self.createInfowindow = function() {
+	// 	self.infowindow = new google.maps.InfoWindow();
+	// 	self.infowindow.setContent('hello world');
+	// }
+
+	// Add infowindow to the view
+	// self.addInfowindow = function() {
+	// 	self.infowindow.open(googleMap, self.marker);
+	// }
+
 	self.init();
 }
 
-var initialCenter = new google.maps.LatLng(35.529792, 139.698568);
-var googleMap = new google.maps.Map(document.getElementById('map-canvas'), {
-	center: initialCenter,
-	zoom: 12
-});
+var googleMap;
+function mapInit () {
+	var initialCenter = new google.maps.LatLng(35.529792, 139.698568);
+	googleMap = new google.maps.Map(document.getElementById('map-canvas'), {
+		center: initialCenter,
+		zoom: 12
+	});
+}
+google.maps.event.addDomListener(window, 'load', mapInit);
+
 
 
 var ViewModel = function() {
