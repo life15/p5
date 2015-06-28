@@ -1,0 +1,11 @@
+html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+
+#list-view {
+	z-index: 1;
+	float: left;
+	display: inline;
+}
+
+#map-canvas {
+	z-index: 0;
+}

@@ -5,4 +5,5 @@ var appView;
 $(document).ready(function() {
   appView = new ViewModel();
   ko.applyBindings(appView);
+  appView.init();
 });

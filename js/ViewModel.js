@@ -4,7 +4,6 @@ var Place = function(data) {
 	self.position = data.latLng;
 	self.marker = '';
 	self.infowindow = '';
-	// self.panorma = '';
 
 	// Initialize the place object
 	self.init = function() {
@@ -43,19 +42,6 @@ var Place = function(data) {
 		self.infowindow.open(googleMap, self.marker);
 	}
 
-	// // Initialize the stree view of the place
-	// self.createStreetview = function() {
-	// 	var panoramaOptions = {
-	// 		position: self.position,
-	// 		pov: {
-	// 			heading: 34,
-	// 			pitch: 10
-	// 		}
-	// 	}
-
-	// 	self.panorma = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
-	// }
-
 	self.init();
 }
 
@@ -67,9 +53,6 @@ function mapInit () {
 		zoom: 12
 	});
 }
-google.maps.event.addDomListener(window, 'load', mapInit);
-
-
 
 var ViewModel = function() {
 	var self = this;
@@ -104,5 +87,10 @@ var ViewModel = function() {
 		for (var i = 0; i < self.places().length; i++) {
 			self.places()[i].removeMarker();
 		}
+	}
+
+	self.init = function() {
+		mapInit();
+		self.search(self.filterText);
 	}
 }
