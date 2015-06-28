@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<title>Neighborhood Map</title>
 	<link rel="stylesheet" href="css/style.css">
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -12,7 +13,9 @@
 	<script type="text/javascript" src="js/app.js"></script>
 </head>
 <body>
+	<div id="map-canvas"></div>
 	<div id="list-view">
+		<h3>List View</h3>
 		<div id="search-bar">
 			<input type="search" data-bind="value: filterText, valueUpdate: 'input', event: {input: search(filterText)}" placeholder="Search Box">
 		</div>
@@ -22,7 +25,6 @@
 			</ul>
 		</div>
 	</div>
-	<div id="map-canvas"></div>
 </body>
 
 

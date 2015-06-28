@@ -1,11 +1,17 @@
 html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-
-#list-view {
-	z-index: 1;
-	float: left;
-	display: inline;
+#map-canvas {
+	position: relative;
 }
 
-#map-canvas {
-	z-index: 0;
+
+#list-view {
+	position: absolute;
+	padding: 0 3%;
+	top: 3%;
+	left: 2%;
+	background-color: white;
+}
+
+#search-bar {
+	margin-bottom: 1%;
 }

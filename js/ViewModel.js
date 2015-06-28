@@ -48,11 +48,23 @@ var Place = function(data) {
 var googleMap;
 function mapInit () {
 	var initialCenter = new google.maps.LatLng(35.529792, 139.698568);
-	googleMap = new google.maps.Map(document.getElementById('map-canvas'), {
+	var mapOptions = {
 		center: initialCenter,
-		zoom: 12
-	});
+		zoom: 8,
+		zoomControl: true,
+		zoomControlOptions: {
+			position: google.maps.ControlPosition.RIGHT_BOTTOM
+		},
+		scaleControl: true,
+		streetViewControl: false,
+		panControl: false
+	};
+	googleMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
+
+
+
+
 
 var ViewModel = function() {
 	var self = this;
