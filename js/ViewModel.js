@@ -4,6 +4,8 @@ var Place = function(data) {
 	self.position = data.latLng;
 	self.marker = '';
 	self.infowindow = '';
+	self.selected = ko.observable(false);
+	self.panorama = '';
 
 	// Initialize the place object
 	self.init = function() {
@@ -18,7 +20,7 @@ var Place = function(data) {
 			position: self.position
 		});
 
-		google.maps.event.addListener(self.marker, 'click', self.addInfowindow);
+		google.maps.event.addListener(self.marker, 'click', self.select);
 	}
 
 	// Add marker to the view
@@ -33,18 +35,52 @@ var Place = function(data) {
 
 	// Initialize infowindow of the place
 	self.createInfowindow = function() {
+		var button = '<input type="button" id="streetview-button" value="Street View">'
 		self.infowindow = new google.maps.InfoWindow();
-		self.infowindow.setContent('hello world');
+		self.infowindow.setContent('<h3>' + self.name + '</h3>' + button);
 	}
 
 	// Add infowindow to the view
 	self.addInfowindow = function() {
 		self.infowindow.open(googleMap, self.marker);
+		var button = document.getElementById('streetview-button');
+		google.maps.event.addDomListener(button, 'click', self.openStreetView);
 	}
 
+	self.closeInfowindow = function() {
+		self.infowindow.close();
+	}
+
+	// Open google street view
+	self.openStreetView = function() {
+		self.panorama = googleMap.getStreetView();
+		self.panorama.setPosition(self.position);
+		self.panorama.setPov({
+			heading:265,
+			pitch:0
+		});
+		self.panorama.setVisible(true);
+	}
+
+	// Change view to selected place
+	self.select = function() {
+		if (appView.currentPlace() != undefined) {
+			appView.currentPlace().closeInfowindow();
+			appView.currentPlace().selected(false);
+		}
+
+		appView.currentPlace(self);
+		self.selected(true);
+		appView.currentPlace().addInfowindow();
+
+		// Close streetview when selected other placesv
+		var streetview = googleMap.getStreetView();
+		streetview.setVisible(false);
+	}
 	self.init();
 }
 
+// Initialize google map
 var googleMap;
 function mapInit () {
 	var initialCenter = new google.maps.LatLng(35.529792, 139.698568);
@@ -56,20 +92,17 @@ function mapInit () {
 			position: google.maps.ControlPosition.RIGHT_BOTTOM
 		},
 		scaleControl: true,
-		streetViewControl: false,
 		panControl: false
 	};
 	googleMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 }
 
-
-
-
-
 var ViewModel = function() {
 	var self = this;
 	self.filterText = ko.observable();
 	self.filterList = ko.observableArray();
+	self.currentPlace = ko.observable();
+	self.panorama = '';
 
 	// neighbourhood places
 	self.places = ko.observableArray([

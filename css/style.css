@@ -3,6 +3,11 @@ html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
 	position: relative;
 }
 
+#pano {
+	position: absolute;
+	right: 2%;
+	top: 3%;
+}
 
 #list-view {
 	position: absolute;
@@ -14,4 +19,8 @@ html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
 
 #search-bar {
 	margin-bottom: 1%;
+}
+
+.selected {
+	background-color: grey;
 }
