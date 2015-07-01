@@ -35,16 +35,31 @@ var Place = function(data) {
 
 	// Initialize infowindow of the place
 	self.createInfowindow = function() {
-		var button = '<input type="button" id="streetview-button" value="Street View">'
+		var button = '<input type="button" id="streetview-button" value="Show Street View!">';
+		var foursquareTitle = '<h4>Foursquare Explore</h4>';
+		var foursquareVenuesList = '<ul>' +
+		'<li class="foursquare-venues-list" id="1">: )</li>' +
+		'<li class="foursquare-venues-list" id="2">: )</li>' +
+		'<li class="foursquare-venues-list" id="3">: )</li>' +
+		'<li class="foursquare-venues-list" id="4">: )</li>' +
+		'<li class="foursquare-venues-list" id="5">: )</li>' +
+		'</ul>';
+		var foursquareDiv = foursquareTitle + foursquareVenuesList;
+
 		self.infowindow = new google.maps.InfoWindow();
-		self.infowindow.setContent('<h3>' + self.name + '</h3>' + button);
+		self.infowindow.setContent('<h3>' + self.name + '</h3>' + button + foursquareDiv);
 	}
 
 	// Add infowindow to the view
 	self.addInfowindow = function() {
 		self.infowindow.open(googleMap, self.marker);
+
+		// Click streetview button to open street view
 		var button = document.getElementById('streetview-button');
 		google.maps.event.addDomListener(button, 'click', self.openStreetView);
+
+		// Add foursquare explore to the info window
+		self.foursquare();
 	}
 
 	self.closeInfowindow = function() {
@@ -77,16 +92,33 @@ var Place = function(data) {
 		var streetview = googleMap.getStreetView();
 		streetview.setVisible(false);
 	}
+
+	// Foursquare
+	self.foursquare = function() {
+		var requestURL = 'https://api.foursquare.com/v2/venues/search?client_id=30I2B2LAU5IZAOFV0MGRNAYRRX4TGX2VA0J3AF4IGHT41WBM&client_secret=PZUEZLKCH4WYXXFDI0F343K4VA1DC5T0UCTK4JWDSXOLPNZB&v=20130815&limit=5&near=' + self.name;
+		$.getJSON(requestURL, function(data) {
+			for (var i = 0; i < data.response.venues.length; i++) {
+				var listID = '.foursquare-venues-list' + '#' + i;
+				// $('#foursquare-venues-list').append(listItem);
+				if(data.response.venues[i].name) {
+					$(listID).html(data.response.venues[i].name);
+				}
+			}
+		}).fail( function() {
+			alert('Cannot get Foursquare explores!');
+		});
+	}
+
 	self.init();
 }
 
 // Initialize google map
 var googleMap;
 function mapInit () {
-	var initialCenter = new google.maps.LatLng(35.529792, 139.698568);
+	var initialCenter = new google.maps.LatLng(22.246404, 114.176574);
 	var mapOptions = {
 		center: initialCenter,
-		zoom: 8,
+		zoom: 12,
 		zoomControl: true,
 		zoomControlOptions: {
 			position: google.maps.ControlPosition.RIGHT_BOTTOM
@@ -106,10 +138,10 @@ var ViewModel = function() {
 
 	// neighbourhood places
 	self.places = ko.observableArray([
-		new Place({name: "Kanagawa", latLng: new google.maps.LatLng(35.529792, 139.698568)}),
-		new Place({name: "Shibuya", latLng: new google.maps.LatLng(35.664035, 139.698212)}),
-		new Place({name: "Tokyo Tower", latLng: new google.maps.LatLng(35.65858, 139.745433)}),
-		new Place({name: "Fuji Mountain", latLng: new google.maps.LatLng(35.360556, 138.727778)})
+		new Place({name: "Hong Kong Coliseum", latLng: new google.maps.LatLng(22.301592, 114.182005)}),
+		new Place({name: "Ocean Park", latLng: new google.maps.LatLng(22.246404, 114.176574)}),
+		new Place({name: "Tsim Sha Tsui", latLng: new google.maps.LatLng(22.297602, 114.172156)}),
+		new Place({name: "Union Square", latLng: new google.maps.LatLng(22.304322, 114.161577)})
 	]);
 
 	// Search and filter
@@ -128,12 +160,14 @@ var ViewModel = function() {
 		}
 	}
 
+	// Removce all markers
 	self.removeMarkerAll = function() {
 		for (var i = 0; i < self.places().length; i++) {
 			self.places()[i].removeMarker();
 		}
 	}
 
+	// Initialize view model
 	self.init = function() {
 		mapInit();
 		self.search(self.filterText);
