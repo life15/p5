@@ -11,7 +11,7 @@ var Place = function(data) {
 	self.init = function() {
 		self.createMarker();
 		self.createInfowindow();
-	}
+	};
 
 	// Initialize marker of the place
 	self.createMarker = function() {
@@ -21,17 +21,17 @@ var Place = function(data) {
 		});
 
 		google.maps.event.addListener(self.marker, 'click', self.select);
-	}
+	};
 
 	// Add marker to the view
 	self.addMarker = function() {
 		self.marker.setMap(googleMap);
-	}
+	};
 
 	// Remove marker from the view
 	self.removeMarker = function() {
 		self.marker.setMap(null);
-	}
+	};
 
 	// Initialize infowindow of the place
 	self.createInfowindow = function() {
@@ -48,7 +48,7 @@ var Place = function(data) {
 
 		self.infowindow = new google.maps.InfoWindow();
 		self.infowindow.setContent('<h3>' + self.name + '</h3>' + button + foursquareDiv);
-	}
+	};
 
 	// Add infowindow to the view
 	self.addInfowindow = function() {
@@ -60,11 +60,11 @@ var Place = function(data) {
 
 		// Add foursquare explore to the info window
 		self.foursquare();
-	}
+	};
 
 	self.closeInfowindow = function() {
 		self.infowindow.close();
-	}
+	};
 
 	// Open google street view
 	self.openStreetView = function() {
@@ -75,7 +75,7 @@ var Place = function(data) {
 			pitch:0
 		});
 		self.panorama.setVisible(true);
-	}
+	};
 
 	// Change view to selected place
 	self.select = function() {
@@ -91,7 +91,7 @@ var Place = function(data) {
 		// Close streetview when selected other placesv
 		var streetview = googleMap.getStreetView();
 		streetview.setVisible(false);
-	}
+	};
 
 	// Foursquare
 	self.foursquare = function() {
@@ -107,7 +107,7 @@ var Place = function(data) {
 		}).fail( function() {
 			alert('Cannot get Foursquare explores!');
 		});
-	}
+	};
 
 	self.init();
 }
@@ -127,7 +127,7 @@ function mapInit () {
 		panControl: false
 	};
 	googleMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-}
+};
 
 var ViewModel = function() {
 	var self = this;
@@ -158,18 +158,18 @@ var ViewModel = function() {
 				self.filterList.push(self.places()[i]);
 			}
 		}
-	}
+	};
 
 	// Removce all markers
 	self.removeMarkerAll = function() {
 		for (var i = 0; i < self.places().length; i++) {
 			self.places()[i].removeMarker();
 		}
-	}
+	};
 
 	// Initialize view model
 	self.init = function() {
 		mapInit();
 		self.search(self.filterText);
-	}
-}
+	};
+};
