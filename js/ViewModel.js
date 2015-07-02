@@ -79,7 +79,7 @@ var Place = function(data) {
 
 	// Change view to selected place
 	self.select = function() {
-		if (appView.currentPlace() != undefined) {
+		if (appView.currentPlace() !== undefined) {
 			appView.currentPlace().closeInfowindow();
 			appView.currentPlace().selected(false);
 		}
@@ -110,7 +110,7 @@ var Place = function(data) {
 	};
 
 	self.init();
-}
+};
 
 // Initialize google map
 var googleMap;
@@ -127,7 +127,7 @@ function mapInit () {
 		panControl: false
 	};
 	googleMap = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-};
+}
 
 var ViewModel = function() {
 	var self = this;
