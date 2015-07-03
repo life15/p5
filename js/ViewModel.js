@@ -60,6 +60,9 @@ var Place = function(data) {
 
 		// Add foursquare explore to the info window
 		self.foursquare();
+
+		// Set the marker and info window to the center
+		googleMap.setCenter(self.position);
 	};
 
 	self.closeInfowindow = function() {
