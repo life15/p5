@@ -138,7 +138,7 @@ var ViewModel = function() {
 
 	// neighbourhood places
 	self.places = ko.observableArray([
-		new Place({name: "Hong Kong Coliseum", latLng: new google.maps.LatLng(22.301592, 114.182005)}),
+		new Place({name: "Mong Kok", latLng: new google.maps.LatLng(22.319194, 114.169432)}),
 		new Place({name: "Ocean Park", latLng: new google.maps.LatLng(22.246404, 114.176574)}),
 		new Place({name: "Tsim Sha Tsui", latLng: new google.maps.LatLng(22.297602, 114.172156)}),
 		new Place({name: "Union Square", latLng: new google.maps.LatLng(22.304322, 114.161577)})
