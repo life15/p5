@@ -152,7 +152,7 @@ var ViewModel = function() {
 
 		// Display all places when no input in search box
 		if(!filter) {filter = "";}
-		for (var i = 0; i < self.places().length; i++) {
+		for (var i = 0, len = self.places().length; i < len; i++) {
 			if(self.places()[i].name.toLowerCase().indexOf(filter.toLowerCase()) >= 0) {
 				self.places()[i].addMarker();
 				self.filterList.push(self.places()[i]);
