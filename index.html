@@ -13,12 +13,12 @@
 	<script src="js/app.js"></script>
 </head>
 <body>
-	<div id="pano"></div>
-	<div id="map-canvas"></div>
-	<div id="list-view">
+	<div class="pano"></div>
+	<div id="map-canvas" class="map"></div>
+	<div class="list-view">
 		<h3>List View</h3>
 		<div>
-			<input id="search-bar" type="search" data-bind="value: filterText, valueUpdate: 'input', event: {input: search(filterText)}" placeholder="Search Box">
+			<input class="search-bar" type="search" data-bind="value: filterText, valueUpdate: 'input', event: {input: search(filterText)}" placeholder="Search Box">
 			<ul data-bind="foreach: filterList">
 				<li data-bind="text: name, click: select, css: { selected: selected() == true}"></li>
 			</ul>
@@ -26,5 +26,5 @@
 	</div>
 </body>
 <script src="js/jquery.collapsible.min.js"></script>
-<script>$('#list-view').collapsible('default-open');</script>
+<script>$('.list-view').collapsible('default-open');</script>
 </html>
