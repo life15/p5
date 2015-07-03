@@ -17,16 +17,14 @@
 	<div id="map-canvas"></div>
 	<div id="list-view">
 		<h3>List View</h3>
-		<div id="search-bar">
-			<input type="search" data-bind="value: filterText, valueUpdate: 'input', event: {input: search(filterText)}" placeholder="Search Box">
-		</div>
-		<div id="places-list">
+		<div>
+			<input id="search-bar" type="search" data-bind="value: filterText, valueUpdate: 'input', event: {input: search(filterText)}" placeholder="Search Box">
 			<ul data-bind="foreach: filterList">
 				<li data-bind="text: name, click: select, css: { selected: selected() == true}"></li>
 			</ul>
 		</div>
 	</div>
 </body>
-
-
+<script src="js/jquery.collapsible.min.js"></script>
+<script>$('#list-view').collapsible('default-open');</script>
 </html>
